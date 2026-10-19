@@ -1,0 +1,14 @@
+{
+  "case_id": "case-08-tamil-narration",
+  "request": {
+    "script": "இது ஒரு தமிழ் மாதிரி உரை. உண்மையான குரல் மற்றும் நேரத்திற்குத் தமிழ் ஆதரவு கொண்ட பேச்சு வழங்குநர் தேவை.",
+    "voice": "ta-IN-female",
+    "aspect_ratios": ["1:1"],
+    "style": "measured, accessible educational narration"
+  },
+  "coverage": ["Tamil script", "Tamil narration provider capability"],
+  "language": "ta-IN",
+  "accent": "Tamil India; this fixture contains text only",
+  "target_duration_seconds": 20,
+  "fixture_status": "request fixture; mock TTS does not produce spoken Tamil"
+}

@@ -1,0 +1,17 @@
+{
+  "case_id": "case-10-structured-scenes-and-caption-timing",
+  "request": {
+    "scenes": [
+      {"text": "Begin with a broad view of the coastline.", "visual_hint": "wide establishing shot"},
+      {"text": "Then follow a volunteer collecting litter.", "visual_hint": "medium action shot"},
+      {"text": "End on a clean shoreline at sunset.", "visual_hint": "quiet closing image"}
+    ],
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9", "9:16", "1:1"],
+    "style": "optimistic but factual, deliberate pacing",
+    "captions": {"burn_in": true, "srt": true}
+  },
+  "coverage": ["structured scene order", "caption alignment", "multiple aspect ratios", "timeline coverage"],
+  "target_duration_seconds": 35,
+  "fixture_status": "request fixture; rendered files are produced only by the FFmpeg renderer integration test"
+}

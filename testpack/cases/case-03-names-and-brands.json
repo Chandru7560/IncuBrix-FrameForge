@@ -1,0 +1,16 @@
+{
+  "case_id": "case-03-names-and-brands",
+  "request": {
+    "scenes": [
+      {"text": "Ada Lovelace wrote about the potential of the analytical engine.", "visual_hint": "archival manuscript detail, not a portrait"},
+      {"text": "Acme Robotics announced a new workshop.", "visual_hint": "generic robotics workshop without logos"}
+    ],
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9"],
+    "style": "archival and documentary",
+    "avoid": ["fabricated likenesses", "invented brand marks", "logos"]
+  },
+  "coverage": ["named people", "brands", "no fabricated likeness or logo"],
+  "target_duration_seconds": 25,
+  "fixture_status": "request fixture; no generated output is claimed"
+}

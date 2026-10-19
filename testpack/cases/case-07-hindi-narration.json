@@ -1,0 +1,14 @@
+{
+  "case_id": "case-07-hindi-narration",
+  "request": {
+    "script": "यह एक नमूना हिंदी कथन है। वास्तविक उच्चारण और समय-निर्धारण के लिए हिंदी-सक्षम वाक् प्रदाता आवश्यक है।",
+    "voice": "hi-IN-female",
+    "aspect_ratios": ["9:16"],
+    "style": "clear, calm educational narration"
+  },
+  "coverage": ["Hindi script", "Hindi narration provider capability"],
+  "language": "hi-IN",
+  "accent": "Hindi India; this fixture contains text only",
+  "target_duration_seconds": 20,
+  "fixture_status": "request fixture; mock TTS does not produce spoken Hindi"
+}

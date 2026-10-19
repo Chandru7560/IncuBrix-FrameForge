@@ -1,0 +1,16 @@
+{
+  "input_type": "script",
+  "request": {
+    "script": "Trust grows when people keep a promise.",
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9"],
+    "style": "Natural documentary, considered pacing",
+    "avoid": [],
+    "captions": {"burn_in": true, "srt": true}
+  },
+  "test_configuration": {
+    "RENDER_ENABLED": false,
+    "MOCK_PROVIDER": true
+  },
+  "expected_scope": "scene planning only; no narration or video artifact"
+}

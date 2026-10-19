@@ -1,0 +1,13 @@
+{
+  "case_id": "case-05-sensitive-news",
+  "request": {
+    "script": "After the flood, residents organized local support and helped neighbours find safe shelter.",
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9", "9:16"],
+    "style": "respectful, non-sensational public-interest documentary",
+    "avoid": ["distress closeups", "graphic imagery", "identifiable vulnerable people"]
+  },
+  "coverage": ["sensitive news", "respectful visual handling", "avoid constraints"],
+  "target_duration_seconds": 30,
+  "fixture_status": "request fixture; no generated output is claimed"
+}

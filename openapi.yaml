@@ -1,0 +1,587 @@
+openapi: 3.1.0
+info:
+  title: ScenePilot AI API
+  description: Asynchronous API foundation for narration-to-B-roll jobs. Mock mode
+    validates job handling but does not generate media.
+  version: 0.1.0
+paths:
+  /health:
+    get:
+      tags:
+      - operations
+      summary: Check service liveness
+      operationId: health_check
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Health Check
+  /ready:
+    get:
+      tags:
+      - operations
+      summary: Check service dependencies
+      operationId: readiness_check
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Readiness Check
+        '503':
+          description: A required dependency is not ready.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/broll/jobs:
+    post:
+      tags:
+      - jobs
+      summary: Create an asynchronous B-roll job
+      operationId: create_broll_job
+      responses:
+        '202':
+          description: Job accepted and queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAccepted'
+        '400':
+          description: Invalid idempotency key or JSON body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Idempotency key was reused for a different request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Request or uploaded file exceeds configured limits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Uploaded audio format is not supported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Input is invalid or unsafe.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: The job could not be safely queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        description: Required token used to deduplicate identical job submissions.
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+                required:
+                - script
+                properties:
+                  script:
+                    type: string
+                    minLength: 1
+                    maxLength: 100000
+              - type: object
+                required:
+                - scenes
+                properties:
+                  scenes:
+                    type: array
+                    minItems: 1
+                    items:
+                      type: object
+                      required:
+                      - text
+                      properties:
+                        text:
+                          type: string
+                          minLength: 1
+                          maxLength: 5000
+                        visual_hint:
+                          type:
+                          - string
+                          - 'null'
+                          maxLength: 1000
+                      additionalProperties: false
+              - type: object
+                required:
+                - audio_url
+                properties:
+                  audio_url:
+                    type: string
+                    format: uri
+              properties:
+                voice:
+                  type: string
+                  default: en-IN-female
+                aspect_ratios:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - '16:9'
+                    - '9:16'
+                    - '1:1'
+                style:
+                  type: string
+                avoid:
+                  type: array
+                  items:
+                    type: string
+                captions:
+                  type: object
+                  properties:
+                    burn_in:
+                      type: boolean
+                      default: true
+                    srt:
+                      type: boolean
+                      default: true
+              additionalProperties: false
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                voice:
+                  type: string
+                aspect_ratios:
+                  type: string
+                  description: JSON array of output ratios.
+                style:
+                  type: string
+                avoid:
+                  type: string
+                  description: JSON array of avoid phrases.
+                captions:
+                  type: string
+                  description: JSON object of caption settings.
+                scenes:
+                  type: string
+                  description: Reserved; not accepted with file.
+                script:
+                  type: string
+                  description: Reserved; not accepted with file.
+                audio_url:
+                  type: string
+                  description: Reserved; not accepted with file.
+              additionalProperties: false
+  /api/v1/jobs/{job_id}:
+    get:
+      tags:
+      - jobs
+      summary: Get job status, progress, warnings, and results
+      operationId: get_job
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatus'
+        '404':
+          description: The requested job does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The job identifier is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/jobs/{job_id}/artifacts/{artifact_name}:
+    get:
+      tags:
+      - jobs
+      summary: Download a validated job artifact
+      operationId: download_job_artifact
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: artifact_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Artifact Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: The job or requested artifact does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/jobs/{job_id}/ratings:
+    post:
+      tags:
+      - jobs
+      summary: Record a human relevance rating for a planned scene
+      operationId: rate_scene_relevance
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SceneRatingRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SceneRatingResponse'
+        '400':
+          description: Missing or invalid idempotency key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job or scene was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Idempotency key was reused with different data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Rating payload is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - jobs
+      summary: List saved human scene relevance ratings
+      operationId: list_scene_relevance_ratings
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response List Scene Relevance Ratings
+        '404':
+          description: Job was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ErrorDetail:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        retryable:
+          type: boolean
+          title: Retryable
+        details:
+          additionalProperties: true
+          type: object
+          title: Details
+      type: object
+      required:
+      - code
+      - message
+      - retryable
+      title: ErrorDetail
+    ErrorResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorDetail'
+      type: object
+      required:
+      - error
+      title: ErrorResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    JobAccepted:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - succeeded
+          - failed
+          title: Status
+        progress:
+          type: integer
+          maximum: 100.0
+          minimum: 0.0
+          title: Progress
+        status_url:
+          type: string
+          title: Status Url
+      type: object
+      required:
+      - job_id
+      - status
+      - progress
+      - status_url
+      title: JobAccepted
+    JobFailure:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - code
+      - message
+      title: JobFailure
+    JobStatus:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - succeeded
+          - failed
+          title: Status
+        progress:
+          type: integer
+          maximum: 100.0
+          minimum: 0.0
+          title: Progress
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+        result_links:
+          additionalProperties:
+            type: string
+          type: object
+          title: Result Links
+        transcript:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Transcript
+        scene_plan:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Scene Plan
+        narration_duration_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Narration Duration Seconds
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        error:
+          anyOf:
+          - $ref: '#/components/schemas/JobFailure'
+          - type: 'null'
+      type: object
+      required:
+      - job_id
+      - status
+      - progress
+      - warnings
+      - result_links
+      - created_at
+      - updated_at
+      title: JobStatus
+    SceneRatingRequest:
+      properties:
+        scene_id:
+          type: string
+          maxLength: 128
+          minLength: 1
+          title: Scene Id
+        score:
+          type: integer
+          maximum: 5.0
+          minimum: 1.0
+          title: Score
+        rationale:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Rationale
+      additionalProperties: false
+      type: object
+      required:
+      - scene_id
+      - score
+      title: SceneRatingRequest
+    SceneRatingResponse:
+      properties:
+        rating_id:
+          type: string
+          title: Rating Id
+        job_id:
+          type: string
+          title: Job Id
+        scene_id:
+          type: string
+          title: Scene Id
+        score:
+          type: integer
+          title: Score
+        rationale:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rationale
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        idempotent_replay:
+          type: boolean
+          title: Idempotent Replay
+          default: false
+      type: object
+      required:
+      - rating_id
+      - job_id
+      - scene_id
+      - score
+      - rationale
+      - created_at
+      title: SceneRatingResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

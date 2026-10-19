@@ -1,0 +1,20 @@
+{
+  "job_id": "614fa8b4-2bd3-429d-9aac-691c5e39bb04",
+  "status": "failed",
+  "progress": 100,
+  "warnings": [
+    "MOCK_TTS_SILENT_FIXTURE: duration is measured from a generated silent WAV; it is not speech and must not be used as narration.",
+    "VISUAL_RETRIEVAL_NO_ELIGIBLE_ASSET: scene_001 (16:9) has no candidate that passed configured relevance, safety, technical, and rights checks.",
+    "Rendering requires an actual narration audio track."
+  ],
+  "result_links": {},
+  "transcript": null,
+  "scene_plan": null,
+  "narration_duration_seconds": null,
+  "created_at": "2026-10-17T19:07:18.011753",
+  "updated_at": "2026-10-17T19:07:18.061125",
+  "error": {
+    "code": "REAL_NARRATION_REQUIRED",
+    "message": "A silent mock timing fixture cannot be used to produce a video."
+  }
+}

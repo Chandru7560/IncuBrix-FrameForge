@@ -1,0 +1,12 @@
+{
+  "case_id": "case-02-statistics-dates",
+  "request": {
+    "script": "In the 2024 survey, 37 percent of respondents selected the first option. The figure describes that survey only.",
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9", "1:1"],
+    "style": "neutral editorial graphics; no invented charts"
+  },
+  "coverage": ["numerical statistics", "dates", "avoid visual misrepresentation"],
+  "target_duration_seconds": 20,
+  "fixture_status": "request fixture; no generated output is claimed"
+}

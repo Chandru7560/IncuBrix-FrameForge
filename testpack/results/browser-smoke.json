@@ -1,0 +1,97 @@
+{
+  "latest_checked_date_local": "2026-10-19",
+  "environment": "local FastAPI service and integrated browser",
+  "latest_checks": {
+    "studio_page_title": "FrameForge Studio",
+    "api_badge": "API online",
+    "health": "ok",
+    "readiness": "ready",
+    "browser_script_submission": {
+      "observed_status": "succeeded",
+      "progress": 100,
+      "error": null,
+      "scene_plan_available": true,
+      "scene_count": 1,
+      "warnings": [
+        "MOCK_TTS_SILENT_FIXTURE: duration is measured from a generated silent WAV; it is not speech and must not be used as narration.",
+        "VISUAL_RETRIEVAL_NO_ELIGIBLE_ASSET: scene_001 (16:9) has no candidate that passed configured relevance, safety, technical, and rights checks.",
+        "SCENE_PLANNING_ONLY: rendering is disabled; no video artifacts were created."
+      ],
+      "result_links": {},
+      "interpretation": "The UI created a real scene-planning job. Local rendering is disabled by default, and the silent mock narration and unavailable rights-verified footage were disclosed; no video artifacts were created."
+    },
+    "responsive_layout": {
+      "viewport_width_css_pixels": 390,
+      "document_width_css_pixels": 375,
+      "horizontal_overflow": false
+    },
+    "overlapping_job_polling": {
+      "observed_result": "passed",
+      "test_method": "Held the first job's status response while submitting a second script from the Studio.",
+      "first_job_status_request_held": true,
+      "second_job_terminal_status": "succeeded",
+      "second_job_status_requests": 2,
+      "selected_job_preserved_after_first_request_released": true,
+      "same_job_poll_requests_deduplicated": true,
+      "interpretation": "An older in-flight status response did not replace the latest selected job or stop polling it. The latest job remained selected after the older response was released."
+    }
+  },
+  "historical_run_2026_10_17": {
+    "planning_only_submission": {
+      "observed_status": "succeeded",
+      "scene_plan_visible": true,
+      "intent_and_timeline_visible": true,
+      "warnings_visible": true,
+      "rights_status_visible": "No eligible asset",
+      "interpretation": "Scene planning only; mock narration and unverified footage were disclosed. No video artifact was produced."
+    },
+    "human_rating_control": {
+      "post_action_message": "Human rating saved.",
+      "test_record_removed": true,
+      "reason": "No actual selected footage was available, so the test rating was not retained as relevance evidence."
+    }
+  },
+  "live_demo_capture": {
+    "file": "../../release/FrameForge-Studio-Live-Demo.mp4",
+    "sha256": "507068eb99f75eae31af5040cdd0598bb828fbbb8ca7cee6249380b594ffcbb0",
+    "duration_seconds": 180,
+    "video": {
+      "codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "frame_rate": 15,
+      "audio_streams": 0
+    },
+    "capture_type": "Unedited screen recording of the running application in the integrated browser; not an app-generated production video.",
+    "sampled_frame_times_seconds": [0, 30, 60, 90, 120, 150, 179],
+    "observed_behaviors": {
+      "successful_scene_plan": {
+        "job_id": "cac50e64-20ad-47d1-9ed2-9066a0a31bed",
+        "status": "succeeded",
+        "scene_count": 3,
+        "rendered_video_created": false
+      },
+      "silent_audio_rejection": {
+        "job_id": "831504c5-18cc-47c1-8ba9-b6e09f3b85bb",
+        "status": "failed",
+        "message": "The uploaded audio contains no detectable speech-level signal."
+      },
+      "test_summary_shown": {
+        "passed": 129,
+        "failed": 0,
+        "skipped": 0,
+        "warnings": 1
+      },
+      "design_rationale_shown": "Fail closed when narration is silent or footage rights are not verified."
+    },
+    "limitations": [
+      "The screen recording has no narration or audio track.",
+      "The demo shows scene planning and validation behavior, not a rendered production video."
+    ]
+  },
+  "production_video_output": null,
+  "limitations": [
+    "No playable production video was available to inspect.",
+    "Portrait/landscape comparison could not be verified with real job outputs."
+  ]
+}

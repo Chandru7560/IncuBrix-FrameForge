@@ -1,0 +1,14 @@
+{
+  "case_id": "case-06-portrait-reframe",
+  "request": {
+    "scenes": [
+      {"text": "A field researcher records a bird near the right edge of a wide landscape frame.", "visual_hint": "subject remains visible after a portrait crop"}
+    ],
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9", "9:16"],
+    "style": "wildlife documentary, maintain subject safe area"
+  },
+  "coverage": ["portrait reframing", "landscape-edge subject", "ratio comparison"],
+  "target_duration_seconds": 20,
+  "fixture_status": "request fixture; actual subject detection requires an injected detector"
+}

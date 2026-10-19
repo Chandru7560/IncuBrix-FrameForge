@@ -1,0 +1,20 @@
+{
+  "case_id": "case-04-ambiguous-terms",
+  "request": {
+    "scenes": [
+      {"text": "Cloud computing lets a team store data on remote servers.", "visual_hint": "data center"},
+      {"text": "A dark cloud moved over the mountain.", "visual_hint": "storm cloud"},
+      {"text": "The bank approved a small-business loan.", "visual_hint": "financial adviser at a desk"},
+      {"text": "Wildflowers grew along the river bank.", "visual_hint": "river edge"},
+      {"text": "The mouse ran beneath the garden shed.", "visual_hint": "small field mouse"},
+      {"text": "Move the mouse pointer to the save control.", "visual_hint": "computer interface, no logo"},
+      {"text": "A python warmed on a sunlit rock.", "visual_hint": "snake in natural habitat"}
+    ],
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9"],
+    "style": "contextual natural history and technology"
+  },
+  "coverage": ["cloud", "bank", "mouse", "python", "contextual disambiguation"],
+  "target_duration_seconds": 60,
+  "fixture_status": "request fixture; no generated output is claimed"
+}

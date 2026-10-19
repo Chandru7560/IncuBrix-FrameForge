@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "source_type": "script",
+  "timing_authority": "measured_generated_audio",
+  "duration_seconds": 4.0,
+  "coverage": {
+    "covered_seconds": 4.0,
+    "coverage_ratio": 1.0,
+    "maximum_gap_seconds": 0.0,
+    "maximum_overlap_seconds": 0.0,
+    "boundary_tolerance_seconds": 0.05,
+    "gap_count": 0,
+    "overlap_count": 0
+  },
+  "transcript": {
+    "original_text": "Cloud computing moves useful data.",
+    "normalized_text": "Cloud computing moves useful data.",
+    "segments": [
+      {
+        "text": "Cloud",
+        "start_seconds": 0.0,
+        "end_seconds": 0.689655,
+        "confidence": null,
+        "timing_source": "known_script"
+      },
+      {
+        "text": "computing",
+        "start_seconds": 0.689655,
+        "end_seconds": 1.931034,
+        "confidence": null,
+        "timing_source": "known_script"
+      },
+      {
+        "text": "moves",
+        "start_seconds": 1.931034,
+        "end_seconds": 2.62069,
+        "confidence": null,
+        "timing_source": "known_script"
+      },
+      {
+        "text": "useful",
+        "start_seconds": 2.62069,
+        "end_seconds": 3.448276,
+        "confidence": null,
+        "timing_source": "known_script"
+      },
+      {
+        "text": "data.",
+        "start_seconds": 3.448276,
+        "end_seconds": 4.0,
+        "confidence": null,
+        "timing_source": "known_script"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_001",
+      "order": 1,
+      "narration_text": "Cloud computing moves useful data.",
+      "start_seconds": 0.0,
+      "end_seconds": 4.0,
+      "duration_seconds": 4.0,
+      "intent_graph": {
+        "central_concept": "cloud computing",
+        "interpretation": "Remote computing/data services",
+        "intent": "Show data moving between devices and remote servers or a software dashboard; do not use sky/cloudscape stock imagery.",
+        "entities": ["Cloud"],
+        "actions": [],
+        "abstract_ideas": [],
+        "mood": "neutral",
+        "sensitivity": "low",
+        "sensitive_terms": [],
+        "avoid_constraints": [],
+        "desired_shot_type": "medium observational shot",
+        "composition": "Use a clean, legible screen or diagram with protected caption space.",
+        "visual_continuity": "Natural-light observational B-roll with consistent tonal warmth.",
+        "semantic_evidence": [
+          "Cloud term is grounded by computing/data/software context."
+        ],
+        "selection_method": "deterministic_context_rules",
+        "fallback_reason": null,
+        "visual_hint": null,
+        "visual_hint_assessment": {
+          "alignment": "not_provided",
+          "reason": "No visual hint was supplied."
+        },
+        "source_segment_indices": [0, 1, 2, 3, 4],
+        "visual_style": null,
+        "sentence_or_phrase_boundary": "Sentence or clause punctuation boundary."
+      }
+    }
+  ],
+  "fallback_reasons": [],
+  "warnings": []
+}

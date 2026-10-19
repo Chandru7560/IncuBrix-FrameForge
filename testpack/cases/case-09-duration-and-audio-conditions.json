@@ -1,0 +1,12 @@
+{
+  "case_id": "case-09-duration-and-audio-conditions",
+  "request": {
+    "script": "A longer production candidate discusses seasonal farming, careful water use, and the difference between short-term weather and long-term climate.",
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9"],
+    "style": "patient long-form documentary"
+  },
+  "coverage": ["20-second-to-5-minute test matrix", "five-minute audio boundary", "silent audio", "music-only audio"],
+  "target_duration_seconds": 300,
+  "fixture_status": "text request only; separate audio-condition tests synthesize WAV bytes in memory; not a five-minute recording"
+}

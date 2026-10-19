@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b0e12">
+    <title>FrameForge Studio</title>
+    <link rel="stylesheet" href="/studio-assets/studio.css">
+    <script src="/studio-assets/studio.js?v=20261019-3" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="FrameForge Studio home">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span>FRAMEFORGE <small>STUDIO</small></span>
+        </a>
+        <div class="topbar-center"><span class="live-dot"></span><span>LOCAL WORKSPACE</span><span class="topbar-divider"></span><span id="service-state">Checking API…</span></div>
+        <a class="api-link" href="/docs" target="_blank" rel="noreferrer">API docs <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main class="workspace">
+        <aside class="left-rail" aria-label="Project and source settings">
+          <div class="rail-heading"><span class="eyebrow">NEW PROJECT</span><span class="step-count">01 / 03</span></div>
+          <section class="panel source-panel">
+            <div class="section-title"><span class="section-index">01</span><h1>Bring your story</h1></div>
+            <p class="muted">Start with narration or a scene outline. Your source stays on this server.</p>
+            <div class="mode-tabs" role="tablist" aria-label="Input type">
+              <button class="mode-tab active" id="tab-script" role="tab" aria-selected="true" aria-controls="mode-script" data-mode="script">Script</button>
+              <button class="mode-tab" id="tab-scenes" role="tab" aria-selected="false" aria-controls="mode-scenes" data-mode="scenes">Scenes</button>
+              <button class="mode-tab" id="tab-audio" role="tab" aria-selected="false" aria-controls="mode-audio" data-mode="audio">Audio</button>
+              <button class="mode-tab" id="tab-url" role="tab" aria-selected="false" aria-controls="mode-url" data-mode="url">URL</button>
+            </div>
+            <form id="job-form">
+              <div class="mode-pane" id="mode-script" role="tabpanel" aria-labelledby="tab-script">
+                <label class="field-label" for="script-input">Narration script</label>
+                <textarea id="script-input" rows="7" maxlength="100000" placeholder="Paste the words you want to bring to life…" required></textarea>
+                <div class="field-foot"><span>Meaning-first scene planning</span><span id="script-count">0 / 100,000</span></div>
+              </div>
+              <div class="mode-pane" id="mode-scenes" role="tabpanel" aria-labelledby="tab-scenes" hidden>
+                <label class="field-label" for="scenes-input">Scene list · JSON</label>
+                <textarea id="scenes-input" rows="9" placeholder='[{"text":"A thoughtful opening line.","visual_hint":"Warm, close-up detail"}]'></textarea>
+                <p class="field-help">Each scene needs <code>text</code>. Optional <code>visual_hint</code> informs, but does not override, meaning.</p>
+              </div>
+              <div class="mode-pane" id="mode-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
+                <label class="field-label" for="audio-file">Voice recording</label>
+                <label class="dropzone" for="audio-file" id="dropzone">
+                  <span class="upload-icon" aria-hidden="true">↑</span>
+                  <strong id="file-name">Choose an audio file</strong>
+                  <span>MP3, WAV or M4A · up to 10 minutes</span>
+                  <input id="audio-file" type="file" accept=".mp3,.wav,.m4a,audio/mpeg,audio/wav,audio/mp4">
+                </label>
+                <p class="field-help">Speech recognition is not configured here. Audio is validated, but transcription jobs fail explicitly instead of inventing a transcript.</p>
+              </div>
+              <div class="mode-pane" id="mode-url" role="tabpanel" aria-labelledby="tab-url" hidden>
+                <label class="field-label" for="audio-url">Public HTTPS audio URL</label>
+                <input id="audio-url" type="url" placeholder="https://…" autocomplete="url">
+                <p class="field-help">Public HTTPS audio is downloaded with size, redirect, format, and duration checks. Speech recognition is not configured, so transcription jobs fail explicitly.</p>
+              </div>
+
+              <div class="divider"></div>
+              <div class="section-title compact"><span class="section-index">02</span><h2>Production settings</h2></div>
+              <label class="field-label" for="voice-select">Narration voice</label>
+              <select id="voice-select">
+                <option value="en-IN-female">English · India (default)</option>
+                <option value="hi-IN-female">Hindi · India</option>
+                <option value="ta-IN-female">Tamil · India</option>
+              </select>
+              <p class="field-help warning-note">Voice selection is sent with the request; no real TTS provider is currently connected.</p>
+              <label class="field-label" for="style-input">Visual direction</label>
+              <input id="style-input" type="text" maxlength="1000" value="Natural documentary, considered pacing">
+              <fieldset class="ratio-fieldset">
+                <legend class="field-label">Deliverable formats</legend>
+                <label class="check-card"><input type="checkbox" name="ratio" value="16:9" checked><span><b>16:9</b><small>Landscape</small></span></label>
+                <label class="check-card"><input type="checkbox" name="ratio" value="9:16"><span><b>9:16</b><small>Portrait</small></span></label>
+                <label class="check-card"><input type="checkbox" name="ratio" value="1:1"><span><b>1:1</b><small>Square</small></span></label>
+              </fieldset>
+              <label class="switch-row"><span><b>Burn captions into video</b><small>SRT remains a separate artifact</small></span><input id="captions-toggle" type="checkbox" checked aria-label="Burn captions into video"></label>
+              <label class="field-label" for="avoid-input">Avoid in visuals</label>
+              <input id="avoid-input" type="text" placeholder="e.g. identifiable faces, hospital scenes">
+              <p class="field-help">Separate multiple terms with commas.</p>
+              <button class="primary-button" id="create-job" type="submit"><span>Create scene plan</span><span aria-hidden="true">↗</span></button>
+              <p class="submit-note">Local mode plans scenes only; video rendering requires real narration and verified footage.</p>
+              <div class="form-alert" id="form-alert" role="alert" hidden></div>
+            </form>
+          </section>
+        </aside>
+
+        <section class="center-workspace" aria-label="Editing workspace">
+          <div class="center-heading">
+            <div><span class="eyebrow">EDITING SUITE</span><h2 id="project-title">Untitled production</h2></div>
+            <div id="job-badge" class="status-badge status-idle"><span class="status-dot"></span><span id="job-status-text">No active job</span></div>
+          </div>
+          <section class="panel progress-panel" aria-label="Job progress">
+            <div class="progress-top"><div><span class="eyebrow">PIPELINE</span><strong id="progress-label">Ready for a new production</strong></div><span id="progress-number" class="progress-number">—</span></div>
+            <div class="progress-track" role="progressbar" aria-label="Job progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill"></span></div>
+            <div class="pipeline-stages" id="pipeline-stages">
+              <span class="pipeline-step" data-stage="queued"><i></i>Queued</span>
+              <span class="pipeline-step" data-stage="planning"><i></i>Scene planning</span>
+              <span class="pipeline-step" data-stage="retrieval"><i></i>Footage &amp; rights</span>
+              <span class="pipeline-step" data-stage="render"><i></i>Render &amp; validate</span>
+            </div>
+            <p class="stage-disclaimer" id="stage-disclaimer">Detailed stage events are not currently exposed by the API. This view reflects the job status and progress actually reported by the server.</p>
+          </section>
+
+          <section class="preview-section">
+            <div class="section-bar"><div><span class="eyebrow">PROGRAM MONITOR</span><h2>Video preview</h2></div><label class="format-select-label" for="preview-format">Preview format<select id="preview-format"><option value="16:9">16:9 · Landscape</option><option value="9:16">9:16 · Portrait</option><option value="1:1">1:1 · Square</option></select></label></div>
+            <div class="preview-frame" id="preview-frame">
+              <div class="preview-empty" id="preview-empty">
+                <div class="monitor-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+                <strong>Your production preview</strong>
+                <p>Rendered video appears here when a job has produced a validated MP4.</p>
+                <span class="empty-tag">NO VIDEO LOADED</span>
+              </div>
+              <video id="video-player" controls playsinline preload="metadata" aria-label="Rendered video preview" hidden></video>
+              <div class="video-overlay-label" id="video-overlay-label" hidden><span class="live-dot"></span><span id="video-format-label"></span></div>
+            </div>
+            <div class="preview-meta"><span id="preview-meta-text">No media artifact attached</span><span id="preview-duration"></span></div>
+            <div class="comparison-row" id="comparison-row" hidden><span class="eyebrow">REFRAME COMPARISON</span><span id="comparison-message">Select another generated ratio to compare actual outputs.</span><button id="compare-button" class="text-button" type="button">Compare landscape / portrait</button></div>
+            <div class="comparison-players" id="comparison-players" hidden></div>
+          </section>
+
+          <section class="timeline-section">
+            <div class="section-bar"><div><span class="eyebrow">NARRATION-SYNCED EDIT</span><h2>Scene timeline <span id="scene-count" class="count-chip">0</span></h2></div><span class="timeline-scale" id="timeline-scale">Waiting for scene plan</span></div>
+            <div id="timeline-empty" class="timeline-empty">The timeline will be built from narration timestamps when scene planning completes.</div>
+            <div id="timeline-ruler" class="timeline-ruler" hidden></div>
+            <div id="timeline-track" class="timeline-track" hidden></div>
+            <div id="caption-track" class="caption-track" hidden><span class="track-label">CAPTIONS</span><div id="caption-items"></div></div>
+          </section>
+
+          <section class="storyboard-section">
+            <div class="section-bar"><div><span class="eyebrow">SCENE INTELLIGENCE BOARD</span><h2>Storyboard</h2></div><span id="storyboard-hint" class="muted">Scene cards appear from the selected job</span></div>
+            <div id="storyboard-empty" class="storyboard-empty"><span class="empty-symbol" aria-hidden="true">▦</span><p>No scenes to inspect yet. Submit a script or scene list to begin.</p></div>
+            <div id="storyboard" class="storyboard" role="list" hidden></div>
+          </section>
+        </section>
+
+        <aside class="right-inspector" aria-label="Scene inspector and evidence">
+          <div class="inspector-heading"><div><span class="eyebrow">SCENE INSPECTOR</span><h2 id="inspector-title">Select a scene</h2></div><span class="inspector-icon" aria-hidden="true">⌗</span></div>
+          <div id="inspector-empty" class="inspector-empty">Choose a storyboard scene or timeline segment to examine its meaning, selection evidence, and rights metadata.</div>
+          <div id="inspector-content" hidden>
+            <section class="inspector-block"><span class="eyebrow">NARRATION</span><p id="scene-narration" class="scene-quote"></p><div class="time-chip" id="scene-time"></div></section>
+            <section class="inspector-block"><span class="eyebrow">INTENDED MEANING</span><h3 id="scene-concept"></h3><p id="scene-intent" class="inspector-copy"></p><div id="scene-entities" class="tag-list"></div></section>
+            <section class="inspector-block"><span class="eyebrow">VISUAL MATCH</span><div class="score-row"><span>Metadata retrieval match</span><strong id="scene-score">Not scored</strong></div><div class="score-bar"><span id="score-bar-fill"></span></div><p class="score-note">Heuristic candidate-ranking score. It is not a calibrated confidence or human relevance score.</p><p id="scene-rationale" class="inspector-copy"></p><div class="score-row independent-row"><span>Independent frame evaluation</span><strong id="independent-score">Not configured</strong></div><p id="independent-rationale" class="score-note"></p><a id="asset-source-link" class="source-link" target="_blank" rel="noreferrer" hidden>Open original asset ↗</a></section>
+            <section class="inspector-block rights-block"><div class="rights-heading"><span class="eyebrow">RIGHTS PASSPORT</span><span class="rights-indicator" id="rights-status">Not available</span></div><dl id="rights-details" class="rights-list"></dl><p id="rights-attribution" class="attribution"></p></section>
+            <section class="inspector-block rating-block"><span class="eyebrow">HUMAN RELEVANCE RATING</span><p class="score-note">Your rating is stored for this scene. It is not an automated model score.</p><div class="rating-control" role="group" aria-label="Rate scene relevance from 1 to 5"><button type="button" data-rating="1" aria-label="Rate 1 out of 5">1</button><button type="button" data-rating="2" aria-label="Rate 2 out of 5">2</button><button type="button" data-rating="3" aria-label="Rate 3 out of 5">3</button><button type="button" data-rating="4" aria-label="Rate 4 out of 5">4</button><button type="button" data-rating="5" aria-label="Rate 5 out of 5">5</button></div><label class="visually-hidden" for="rating-rationale">Rating rationale</label><textarea id="rating-rationale" rows="2" maxlength="2000" placeholder="Optional: why does this shot fit?"></textarea><button type="button" id="submit-rating" class="secondary-button" disabled>Save rating</button><p id="rating-feedback" class="field-help" aria-live="polite"></p></section>
+            <section class="inspector-block replacement-block"><span class="eyebrow">SCENE REPLACEMENT</span><p class="inspector-copy">Scene replacement and partial rerender are not implemented by the current API. No replacement action is offered; cached unchanged segments are reused during a full job render.</p></section>
+          </div>
+          <section class="evidence-panel">
+            <div class="section-bar small"><div><span class="eyebrow">EVIDENCE CONSOLE</span><h2>Job evidence</h2></div><button class="icon-button" id="refresh-job" type="button" aria-label="Refresh current job" title="Refresh current job" disabled>↻</button></div>
+            <div id="evidence-empty" class="evidence-empty">Manifests, warnings, and downloadable outputs appear here when provided by a job.</div>
+            <div id="evidence-content" hidden>
+              <div class="evidence-job"><span class="eyebrow">JOB ID</span><code id="evidence-job-id"></code><button id="copy-job-id" type="button" class="copy-button">Copy</button></div>
+              <div id="warning-list" class="warning-list"></div>
+              <div id="artifact-list" class="artifact-list"></div>
+              <details class="evidence-details"><summary>Scene-plan JSON</summary><pre id="scene-json"></pre></details>
+              <details class="evidence-details"><summary>Saved human ratings</summary><div id="saved-ratings" class="saved-ratings"></div></details>
+              <p class="field-help">Service logs are not exposed by this deployment. Correlation IDs are returned in response headers.</p>
+            </div>
+          </section>
+        </aside>
+      </main>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+  </body>
+</html>

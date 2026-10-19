@@ -1,0 +1,13 @@
+{
+  "case_id": "case-01-abstract-metaphor",
+  "request": {
+    "script": "Trust is built through many small acts of keeping a promise. A business can create value without showing money changing hands.",
+    "voice": "en-IN-female",
+    "aspect_ratios": ["16:9"],
+    "style": "restrained documentary, symbolic but grounded",
+    "avoid": ["literal currency", "fabricated logos"]
+  },
+  "coverage": ["abstract trust", "financial value versus abstract value", "metaphorical language"],
+  "target_duration_seconds": 20,
+  "fixture_status": "request fixture; no generated output is claimed"
+}

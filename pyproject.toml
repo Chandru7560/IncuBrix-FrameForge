@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scenepilot-ai"
+version = "0.1.0"
+description = "ScenePilot AI asynchronous narration-to-B-roll production workspace"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115,<0.120",
+    "httpx>=0.28,<1.0",
+    "pydantic>=2.0,<3.0",
+    "psycopg2-binary>=2.9,<3.0",
+    "python-multipart>=0.0.9",
+    "starlette>=0.40,<1.0",
+    "SQLAlchemy==2.0.23",
+    "uvicorn[standard]>=0.23,<1.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.4,<9.0", "PyYAML>=6.0,<7.0"]
+
+[project.scripts]
+scenepilot-batch = "scenepilot.batch_runner:main"
+scenepilot-evaluate-ratings = "scenepilot.evaluation_report:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"scenepilot.studio" = ["*.html", "*.css", "*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

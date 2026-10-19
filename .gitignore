@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.db
+*.egg-info/
+data/
+test-results/
+IncuBrix_Assessment_3_Script_to_Broll_Video_Engine_Brief.pdf
+IncuBrix_Assessment_3_Script_to_Broll_Video_Engine_Submission_Form.xlsx
+Assessment3_Submission_Draft.xlsx

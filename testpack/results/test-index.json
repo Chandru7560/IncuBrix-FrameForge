@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "command": "python -m pytest tests\\unit tests\\integration -o addopts= -q -rs",
+  "result_log": "full-regression.txt",
+  "final_result": {
+    "passed": 129,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "duration_seconds": 24.56,
+    "exit_code": 0,
+    "captured_date_utc": "2026-10-19"
+  },
+  "browser_smoke_result": "browser-smoke.json",
+  "observed_job_runs": {
+    "planning_only": "planning-only-job.json",
+    "render_failure": "render-failed-job.json",
+    "planning_request": "planning-only-request.json"
+  },
+  "evidence_boundary": "Test output is automated local evidence. It does not establish live provider availability, commercial rights, production video quality, human relevance ratings, or Docker deployment.",
+  "production_video_outputs": [],
+  "notes": [
+    "Ten request fixtures are in ../cases/ and are not generated video outputs.",
+    "FFmpeg and FFprobe were discoverable and the conditional real-render test ran against generated technical fixtures; Docker remains unavailable for container verification.",
+    "The planning-only success and render failure API responses are retained as JSON; neither contains a video output.",
+    "All ten labeled test-pack JSON files are parsed by the batch-runner unit test.",
+    "The test-pattern video/tone are technical fixtures, not stock footage or narration. Pytest reported one Starlette deprecation warning; pytest-asyncio also emitted its loop-scope configuration deprecation at startup."
+  ]
+}

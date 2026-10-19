@@ -1,0 +1,352 @@
+{
+  "job_id": "5247f5fb-905f-4831-af83-61f1b4305fdc",
+  "status": "succeeded",
+  "progress": 100,
+  "warnings": [
+    "MOCK_TTS_SILENT_FIXTURE: duration is measured from a generated silent WAV; it is not speech and must not be used as narration.",
+    "VISUAL_RETRIEVAL_NO_ELIGIBLE_ASSET: scene_001 (16:9) has no candidate that passed configured relevance, safety, technical, and rights checks.",
+    "SCENE_PLANNING_ONLY: rendering is disabled; no video artifacts were created."
+  ],
+  "result_links": {},
+  "transcript": {
+    "original_text": "Trust grows when people keep a promise.",
+    "provider": "script_input",
+    "model": "source_text",
+    "warnings": [
+      "MOCK_TTS_SILENT_FIXTURE: duration is measured from a generated silent WAV; it is not speech and must not be used as narration."
+    ],
+    "segments": [
+      {
+        "text": "Trust",
+        "start_seconds": 0.0,
+        "end_seconds": 0.4375,
+        "confidence": null
+      },
+      {
+        "text": "grows",
+        "start_seconds": 0.4375,
+        "end_seconds": 0.875,
+        "confidence": null
+      },
+      {
+        "text": "when",
+        "start_seconds": 0.875,
+        "end_seconds": 1.225,
+        "confidence": null
+      },
+      {
+        "text": "people",
+        "start_seconds": 1.225,
+        "end_seconds": 1.75,
+        "confidence": null
+      },
+      {
+        "text": "keep",
+        "start_seconds": 1.75,
+        "end_seconds": 2.1,
+        "confidence": null
+      },
+      {
+        "text": "a",
+        "start_seconds": 2.1,
+        "end_seconds": 2.1875,
+        "confidence": null
+      },
+      {
+        "text": "promise.",
+        "start_seconds": 2.1875,
+        "end_seconds": 2.8,
+        "confidence": null
+      }
+    ]
+  },
+  "scene_plan": {
+    "schema_version": "1.0",
+    "source_type": "script",
+    "timing_authority": "measured_generated_audio",
+    "duration_seconds": 2.8,
+    "coverage": {
+      "covered_seconds": 2.8,
+      "coverage_ratio": 1.0,
+      "maximum_gap_seconds": 0.0,
+      "maximum_overlap_seconds": 0.0,
+      "boundary_tolerance_seconds": 0.05,
+      "gap_count": 0,
+      "overlap_count": 0
+    },
+    "transcript": {
+      "original_text": "Trust grows when people keep a promise.",
+      "normalized_text": "Trust grows when people keep a promise.",
+      "segments": [
+        {
+          "text": "Trust",
+          "start_seconds": 0.0,
+          "end_seconds": 0.4375,
+          "confidence": null,
+          "timing_source": "provider"
+        },
+        {
+          "text": "grows",
+          "start_seconds": 0.4375,
+          "end_seconds": 0.875,
+          "confidence": null,
+          "timing_source": "provider"
+        },
+        {
+          "text": "when",
+          "start_seconds": 0.875,
+          "end_seconds": 1.225,
+          "confidence": null,
+          "timing_source": "provider"
+        },
+        {
+          "text": "people",
+          "start_seconds": 1.225,
+          "end_seconds": 1.75,
+          "confidence": null,
+          "timing_source": "provider"
+        },
+        {
+          "text": "keep",
+          "start_seconds": 1.75,
+          "end_seconds": 2.1,
+          "confidence": null,
+          "timing_source": "provider"
+        },
+        {
+          "text": "a",
+          "start_seconds": 2.1,
+          "end_seconds": 2.1875,
+          "confidence": null,
+          "timing_source": "provider"
+        },
+        {
+          "text": "promise.",
+          "start_seconds": 2.1875,
+          "end_seconds": 2.8,
+          "confidence": null,
+          "timing_source": "provider"
+        }
+      ],
+      "provider": "script_input",
+      "model": "source_text",
+      "warnings": [
+        "MOCK_TTS_SILENT_FIXTURE: duration is measured from a generated silent WAV; it is not speech and must not be used as narration."
+      ]
+    },
+    "scenes": [
+      {
+        "scene_id": "scene_001",
+        "order": 1,
+        "narration_text": "Trust grows when people keep a promise.",
+        "start_seconds": 0.0,
+        "end_seconds": 2.8,
+        "duration_seconds": 2.8,
+        "intent_graph": {
+          "central_concept": "abstract trust",
+          "interpretation": "Confidence built through reliable actions",
+          "intent": "Show reliability accumulating through repeated small actions; use a bridge, carefully joined pieces, or two people keeping a commitment, not a literal trust document.",
+          "entities": [
+            "Trust"
+          ],
+          "actions": [
+            "Trust"
+          ],
+          "abstract_ideas": [
+            "trust"
+          ],
+          "mood": "neutral",
+          "sensitivity": "low",
+          "sensitive_terms": [],
+          "avoid_constraints": [],
+          "desired_shot_type": "medium observational shot",
+          "composition": "Keep the primary subject in the central safe area; reserve space for captions.",
+          "visual_continuity": "Natural-light observational B-roll with consistent tonal warmth.",
+          "semantic_evidence": [
+            "Trust is treated as an abstract quality unless a specific object is named."
+          ],
+          "selection_method": "deterministic_context_rules",
+          "fallback_reason": null,
+          "visual_hint": null,
+          "visual_hint_assessment": {
+            "alignment": "not_provided",
+            "reason": "No visual hint was supplied."
+          },
+          "source_segment_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "visual_style": "Natural documentary, considered pacing",
+          "sentence_or_phrase_boundary": "Sentence or clause punctuation boundary."
+        },
+        "visual_retrieval": {
+          "by_aspect_ratio": {
+            "16:9": {
+              "status": "no_eligible_asset",
+              "aspect_ratio": "16:9",
+              "visual_search_description": "Show reliability accumulating through repeated small actions; use a bridge, carefully joined pieces, or two people keeping a commitment, not a literal trust document. Concept: abstract trust. Scene context: Trust grows when people keep a promise. Subjects: Trust. Actions: Trust. Style: Natural documentary, considered pacing.",
+              "selection_policy": {
+                "version": "stock-first-v1",
+                "source_order": [
+                  "pexels",
+                  "pixabay",
+                  "local"
+                ],
+                "minimum_relevance_score": 0.35,
+                "aspect_tolerance_relative": 0.35,
+                "score_weights": {
+                  "semantic_relevance": 0.35,
+                  "action_match": 0.15,
+                  "subject_match": 0.15,
+                  "composition": 0.1,
+                  "shot_variety": 0.1,
+                  "technical_suitability": 0.15
+                },
+                "rights_required": "verified",
+                "watermarked_assets_allowed": false,
+                "generative_fallback_enabled": false
+              },
+              "source_attempts": [
+                {
+                  "provider": "local",
+                  "outcome": "no_eligible_candidates",
+                  "candidate_count": 2,
+                  "response_metadata": {
+                    "fixture": true,
+                    "candidate_count": 2
+                  }
+                }
+              ],
+              "rights_passport": null,
+              "score_components": null,
+              "overall_score": null,
+              "selection_rationale": [
+                "No candidate passed relevance, technical, safety, duplication, download, and rights checks."
+              ],
+              "selected_shot_type": null,
+              "rejected_alternatives": [
+                {
+                  "asset_id": "local-fixture-1",
+                  "provider": "local",
+                  "reason_codes": [
+                    "test_fixture_not_publishable",
+                    "commercial_rights_unverified_or_incomplete",
+                    "content_safety_unknown",
+                    "original_asset_url_missing_or_invalid",
+                    "download_url_missing_or_invalid",
+                    "below_minimum_relevance_threshold"
+                  ],
+                  "overall_score": 0.2375,
+                  "score_components": {
+                    "semantic_relevance": 0.0938,
+                    "action_match": 0.0,
+                    "subject_match": 0.0,
+                    "composition": 0.5,
+                    "shot_variety": 0.5,
+                    "technical_suitability": 0.6978
+                  },
+                  "selection_rationale": [
+                    "semantic_relevance=0.094 weighted 0.35",
+                    "action_match=0.000 weighted 0.15",
+                    "subject_match=0.000 weighted 0.15",
+                    "composition=0.500 weighted 0.10",
+                    "shot_variety=0.500 weighted 0.10",
+                    "technical_suitability=0.698 weighted 0.15",
+                    "overall=0.237; configured minimum=0.350"
+                  ],
+                  "commercial_use_verification_status": "unverified",
+                  "licence_name": null,
+                  "licence_evidence_url": null,
+                  "original_asset_url": null,
+                  "download_url": null,
+                  "watermarked": false,
+                  "watermark_verification": "clear",
+                  "content_safety_status": "unknown",
+                  "content_safety_and_avoid_checks": {
+                    "commercial_rights": false,
+                    "watermark": true,
+                    "content_safety": false,
+                    "avoid_rules": []
+                  },
+                  "provider_response": {
+                    "fixture": true,
+                    "query_terms": [
+                      "show",
+                      "reliability",
+                      "accumulating",
+                      "through"
+                    ]
+                  }
+                },
+                {
+                  "asset_id": "local-fixture-2",
+                  "provider": "local",
+                  "reason_codes": [
+                    "test_fixture_not_publishable",
+                    "commercial_rights_unverified_or_incomplete",
+                    "content_safety_unknown",
+                    "original_asset_url_missing_or_invalid",
+                    "download_url_missing_or_invalid",
+                    "below_minimum_relevance_threshold"
+                  ],
+                  "overall_score": 0.2375,
+                  "score_components": {
+                    "semantic_relevance": 0.0938,
+                    "action_match": 0.0,
+                    "subject_match": 0.0,
+                    "composition": 0.5,
+                    "shot_variety": 0.5,
+                    "technical_suitability": 0.6978
+                  },
+                  "selection_rationale": [
+                    "semantic_relevance=0.094 weighted 0.35",
+                    "action_match=0.000 weighted 0.15",
+                    "subject_match=0.000 weighted 0.15",
+                    "composition=0.500 weighted 0.10",
+                    "shot_variety=0.500 weighted 0.10",
+                    "technical_suitability=0.698 weighted 0.15",
+                    "overall=0.237; configured minimum=0.350"
+                  ],
+                  "commercial_use_verification_status": "unverified",
+                  "licence_name": null,
+                  "licence_evidence_url": null,
+                  "original_asset_url": null,
+                  "download_url": null,
+                  "watermarked": false,
+                  "watermark_verification": "clear",
+                  "content_safety_status": "unknown",
+                  "content_safety_and_avoid_checks": {
+                    "commercial_rights": false,
+                    "watermark": true,
+                    "content_safety": false,
+                    "avoid_rules": []
+                  },
+                  "provider_response": {
+                    "fixture": true,
+                    "query_terms": [
+                      "show",
+                      "reliability",
+                      "accumulating",
+                      "through"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "fallback_reasons": [],
+    "warnings": []
+  },
+  "narration_duration_seconds": 2.8,
+  "created_at": "2026-10-17T19:08:54.712228",
+  "updated_at": "2026-10-17T19:08:54.929574",
+  "error": null
+}
